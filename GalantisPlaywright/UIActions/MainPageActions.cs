@@ -5,7 +5,7 @@ namespace GalantisPlaywright.UIActions
 {
     public class MainPageActions : IMainPageActions
     {
-        IPage _page;
+        private IPage _page;
 
         public MainPageActions(IPage page)
         {

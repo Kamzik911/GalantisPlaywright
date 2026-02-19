@@ -9,20 +9,25 @@ namespace GalantisPlaywright.Tests
 {
     public class MainPageTests
     {
-        private IPage page;
+        private IBrowser _browser;
         private BrowserSetup _browserSestup;
-        private IMainPageActions _mpActions;
-        private IMainPageElements _mpElements;
+        private IPage _page;
+        private IBrowserContext _context;
         private EnvironmentRouteProvider _routeProvider;
+        private IMainPageActions _mpActions;
+        private IMainPageElements _mpElements;        
 
         [SetUp]
         public async Task Setup()
         {            
-            _browserSestup = new BrowserSetup();
-            _browserSestup.SetupBrowser(Browsers.Chrome);
+            _browserSestup = new BrowserSetup();            
+            _browser = await _browserSestup.SetupBrowser(Browsers.Chrome);
+            _context = await _browser.NewContextAsync();
+            _page = await _context.NewPageAsync();
+
             _routeProvider = new EnvironmentRouteProvider();
-            _routeProvider.Get(SetRoutePages.Home);
-            _mpActions = new MainPageActions(page);
+            
+            _mpActions = new MainPageActions(_page);
             _mpElements = new MainPageElements(_mpActions, _routeProvider);
         }
 

@@ -15,9 +15,9 @@ namespace GalantisPlaywright.Elements
             _environmentRoute = environmentRoute;
         }
 
-        public Task GoToMainWebSite()
+        public async Task GoToMainWebSite()
         {
-            return _mpActions.GoToWebSite(_environmentRoute.Get(SetRoutePages.Home));
+            await _mpActions.GoToWebSite(_environmentRoute.Get(SetRoutePages.Home));
         }
     }
 }
