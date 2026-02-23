@@ -1,13 +1,14 @@
 ﻿using GalantisPlaywright.Elements;
+using GalantisPlaywright.Elements.MainPage;
 using GalantisPlaywright.Interfaces;
 using GalantisPlaywright.RoutePages;
 using GalantisPlaywright.Settings;
 using GalantisPlaywright.UIActions;
 using Microsoft.Playwright;
 
-namespace GalantisPlaywright.Tests
+namespace GalantisPlaywright.Tests.MainPage
 {
-    public class MainPageTests
+    public class TestMainModal : PageTest
     {
         private IBrowser _browser;
         private BrowserSetup _browserSestup;
@@ -25,17 +26,29 @@ namespace GalantisPlaywright.Tests
             _context = await _browser.NewContextAsync();
             _page = await _context.NewPageAsync();
 
-            _routeProvider = new EnvironmentRouteProvider();
-            
+            _routeProvider = new EnvironmentRouteProvider();            
             _mpActions = new MainPageActions(_page);
-            _mpElements = new MainPageElements(_mpActions, _routeProvider);
+            _mpElements = new MainPageElements(_mpActions, _routeProvider);            
         }
 
         [Test]
-        public void GoToMainPage()
+        public async Task GoToMainPage()
         {
-            _mpElements.GoToMainWebSite();
+            await _mpElements.GoToMainWebSite();
         }
 
+        [Test]
+        public async Task GoToMainPageAndCloseModal()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.CloseMainPageModalIfVisible();
+        }
+
+        [Test]
+        public async Task ClickInitialModalSubscribeButton()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.ClickMainModalSubscribeButton();
+        }
     }
 }

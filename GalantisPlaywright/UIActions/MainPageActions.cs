@@ -5,22 +5,50 @@ namespace GalantisPlaywright.UIActions
 {
     public class MainPageActions : IMainPageActions
     {
-        private IPage _page;
+        private IPage _page;        
 
         public MainPageActions(IPage page)
         {
             _page = page;
         }
 
-        public Task GoToWebSite(string url)
+        public IFrameLocator GetIFrame(string iframe)
         {
-            return _page.GotoAsync(url);
+            return _page.FrameLocator(iframe);            
         }
 
-        public Task ClickOn(string selector)
+        public async Task GoToWebSite(string url)
         {
-            var locator = _page.Locator(selector);
-            return locator.ClickAsync();
+            await _page.GotoAsync(url);
+        }        
+
+        public async Task ClickOnButtonByName(string name)
+        {
+            var button = _page.GetByRole(AriaRole.Button, new()
+            {
+                Name = name
+            });
+            await Assertions.Expect(button).ToHaveCountAsync(1);
+            await Assertions.Expect(button).ToBeVisibleAsync();
+            await button.ClickAsync();
+        }
+
+        public async Task ClickButtonByLocator(string locator)
+        {
+            var button = _page.Locator(locator);            
+            await Assertions.Expect(button).ToHaveCountAsync(1);
+            await Assertions.Expect(button).ToBeVisibleAsync();
+            await button.ClickAsync();
+        }
+        
+        public async Task ClickInFrameButton(string iframe, string locator)
+        {
+            var iframeLocator = GetIFrame(iframe);
+            var locatorDef = iframeLocator.Locator(locator);
+            await Assertions.Expect(locatorDef).ToHaveCountAsync(1);
+            await Assertions.Expect(locatorDef).ToBeVisibleAsync();
+            await locatorDef.ClickAsync();
         }
     }
 }
+
