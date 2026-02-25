@@ -10,6 +10,7 @@ namespace GalantisPlaywright.Tests.MainPage
 {
     public class TestMainModal : PageTest
     {
+        private IPlaywright? _playwright;
         private IBrowser _browser;
         private BrowserSetup _browserSestup;
         private IPage _page;
@@ -49,6 +50,33 @@ namespace GalantisPlaywright.Tests.MainPage
         {
             await _mpElements.GoToMainWebSite();
             await _mpElements.ClickMainModalSubscribeButton();
+        }
+
+        [Test]
+        public async Task TextToInitialModalEmailField()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.InputTextInitialModalEmailField();
+            await _mpElements.CheckInputedTextToModalEmailField();
+        }
+
+        [Test]
+        public async Task InitialEmailAddressWarnMessage()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.ClickMainModalSubscribeButton();
+            await _mpElements.EmailAddressWarningText();
+        }
+
+        [TearDown]
+
+        public async Task CleanAfterTest()
+        {
+            if (_browser != null)
+            {
+                await _browser.CloseAsync();
+            }
+            _playwright?.Dispose();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GalantisPlaywright.Interfaces;
 using Microsoft.Playwright;
+using NUnit.Framework.Interfaces;
 
 namespace GalantisPlaywright.UIActions
 {
@@ -11,33 +12,58 @@ namespace GalantisPlaywright.UIActions
         {
             _page = page;
         }
+        public async Task GoToWebSite(string url)
+        {
+            await _page.GotoAsync(url);
+        }
 
         public IFrameLocator GetIFrame(string iframe)
         {
             return _page.FrameLocator(iframe);            
+        }       
+
+        public async Task AssertLocatorVisibility(ILocator locator)
+        {            
+            await Assertions.Expect(locator).ToBeVisibleAsync();
         }
 
-        public async Task GoToWebSite(string url)
+        public async Task AssertLocatorCount(ILocator locator, int count = 1)
         {
-            await _page.GotoAsync(url);
-        }        
+            await Assertions.Expect(locator).ToHaveCountAsync(count);         
+        }
+
+        public async Task CheckInputedTextVisibility(string iframe, string locator, string text)
+        {
+            var iframeLocator = GetIFrame(iframe);
+            var locatorDef = iframeLocator.Locator(locator);
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
+            await Assertions.Expect(locatorDef).ToHaveValueAsync(text);
+        }
+
+        public async Task CheckIframeTextVisibility(string iframe, string text, int count)
+        {
+            var iframeLocator = GetIFrame(iframe);
+            var textDef = iframeLocator.GetByText(text);
+            await AssertLocatorCount(textDef, count);            
+        }
 
         public async Task ClickOnButtonByName(string name)
         {
-            var button = _page.GetByRole(AriaRole.Button, new()
+            var locatorDef = _page.GetByRole(AriaRole.Button, new()
             {
                 Name = name
             });
-            await Assertions.Expect(button).ToHaveCountAsync(1);
-            await Assertions.Expect(button).ToBeVisibleAsync();
-            await button.ClickAsync();
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
+            await locatorDef.ClickAsync();
         }
 
         public async Task ClickButtonByLocator(string locator)
         {
-            var button = _page.Locator(locator);            
-            await Assertions.Expect(button).ToHaveCountAsync(1);
-            await Assertions.Expect(button).ToBeVisibleAsync();
+            var button = _page.Locator(locator);
+            await AssertLocatorCount(button);
+            await AssertLocatorVisibility(button);
             await button.ClickAsync();
         }
         
@@ -45,9 +71,18 @@ namespace GalantisPlaywright.UIActions
         {
             var iframeLocator = GetIFrame(iframe);
             var locatorDef = iframeLocator.Locator(locator);
-            await Assertions.Expect(locatorDef).ToHaveCountAsync(1);
-            await Assertions.Expect(locatorDef).ToBeVisibleAsync();
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
             await locatorDef.ClickAsync();
+        }
+
+        public async Task InputTextToField(string iframe, string locator, string text)
+        {
+            var iframeLocator = GetIFrame(iframe);
+            var locatorDef = iframeLocator.Locator(locator);
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
+            await locatorDef.FillAsync(text);
         }
     }
 }

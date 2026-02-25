@@ -34,10 +34,25 @@ namespace GalantisPlaywright.Elements.MainPage
             await CloseMainPageModalIfVisible();
         }
 
-        //Click on subscribe button on initial modal window
+        //Initial modal window elements
         public async Task ClickMainModalSubscribeButton()
         {
-            await _mpActions.ClickInFrameButton(mpElementsDef.MainModalIframe, mpElementsDef.MainModalWindowSubscribeButton);
+            await _mpActions.ClickInFrameButton(mpElementsDef.InitialModalIframe, mpElementsDef.MainModalWindowSubscribeButton);
+        }
+
+        public async Task InputTextInitialModalEmailField()
+        {
+            await _mpActions.InputTextToField(mpElementsDef.InitialModalIframe, mpElementsDef.EmailAddressField, mpElementsDef.TestEmailAddress);
+        }
+
+        public async Task CheckInputedTextToModalEmailField()
+        {
+            await _mpActions.CheckInputedTextVisibility(mpElementsDef.InitialModalIframe, mpElementsDef.EmailAddressField, mpElementsDef.TestEmailAddress);
+        }
+
+        public async Task EmailAddressWarningText()
+        {
+            await _mpActions.CheckIframeTextVisibility(mpElementsDef.InitialModalIframe, mpElementsDef.EmailCountryWarningMessage, 2);
         }
     }
 }

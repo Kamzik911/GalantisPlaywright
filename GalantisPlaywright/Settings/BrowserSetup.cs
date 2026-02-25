@@ -21,7 +21,7 @@ namespace GalantisPlaywright.Settings
 
             return _browser = await browserType.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = true,
+                Headless = false,
                 //SlowMo = 500
             });
         }
