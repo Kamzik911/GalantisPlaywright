@@ -1,4 +1,5 @@
 ﻿using GalantisPlaywright.Interfaces;
+using GalantisPlaywright.Settings;
 using Microsoft.Playwright;
 
 namespace GalantisPlaywright.UIActions
@@ -90,17 +91,17 @@ namespace GalantisPlaywright.UIActions
             await locatorDef.FillAsync(text);
         }
 
-        public async Task<List<string>> SuggestionBoxSelectByOption(string iframe, string locator)
+        public async Task<List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator)
         {
             var iframeLocator = GetIFrame(iframe);
             var locatorDef = iframeLocator.Locator(locator);
-            var suggBoxElements = await locatorDef.Locator("option").AllTextContentsAsync();
+            var suggBoxElements = await locatorDef.Locator("option").AllTextContentsAsync();            
 
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
             
             return suggBoxElements.Where(o => !string.IsNullOrWhiteSpace(o)).ToList();
-        }
+        }        
     }
 }
 

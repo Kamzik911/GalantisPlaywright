@@ -71,8 +71,9 @@ namespace GalantisPlaywright.Tests.MainPage
         [Test]
         public async Task AllCountriesAreSelectable()
         {
-            await _mpElements.GoToMainWebSite();            
-            await _mpElements.LoadCountries();
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.GetCountries();
+            await _mpElements.ExpectedCoutries();            
         }        
 
         [TearDown]

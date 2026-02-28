@@ -1,5 +1,7 @@
 ﻿using GalantisPlaywright.Interfaces;
 using GalantisPlaywright.RoutePages;
+using GalantisPlaywright.Settings;
+using NUnit.Framework.Legacy;
 
 namespace GalantisPlaywright.Elements.MainPage
 {    
@@ -57,8 +59,21 @@ namespace GalantisPlaywright.Elements.MainPage
                 
         public async Task<List<string>> LoadCountries()
         {
-            var countries = await _mpActions.SuggestionBoxSelectByOption(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
+            var countries = await _mpActions.GetValuesFromSuggestionBoxByOption(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
             return countries;
+        }        
+
+        public async Task GetCountries()
+        {
+            TestDataCache.Countries = await LoadCountries();            
+        }
+
+        public async Task ExpectedCoutries()
+        {
+            var actual = await LoadCountries();
+            var expected = TestDataCache.Countries;
+            
+            CollectionAssert.AreEquivalent(actual, expected);
         }
     }
 }
