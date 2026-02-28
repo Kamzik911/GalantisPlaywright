@@ -19,17 +19,19 @@ namespace GalantisPlaywright.Interfaces
         Task ClickOnButtonByName(string name);        
         Task ClickButtonByLocator(string locator);
         Task ClickInFrameButton(string iframe, string locator);
-        Task InputTextToField(string ifram, string locator, string text);
+        Task InputTextToField(string iframe, string locator, string text);
+        Task<List<string>> SuggestionBoxSelectByOption(string iframe, string locator);
     }
 
     public interface IMainPageElements
     {
         Task GoToMainWebSite();
+        Task<List<string>> LoadCountries();
         Task CloseMainPageModalIfVisible();
         Task GoToMainWebSiteAndCloseModal();
         Task ClickMainModalSubscribeButton();
         Task InputTextInitialModalEmailField();
         Task CheckInputedTextToModalEmailField();
-        Task EmailAddressWarningText();
+        Task EmailAddressWarningText();        
     }
 }

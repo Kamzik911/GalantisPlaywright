@@ -1,6 +1,5 @@
 ﻿using GalantisPlaywright.Interfaces;
 using Microsoft.Playwright;
-using NUnit.Framework.Interfaces;
 
 namespace GalantisPlaywright.UIActions
 {
@@ -12,6 +11,7 @@ namespace GalantisPlaywright.UIActions
         {
             _page = page;
         }
+
         public async Task GoToWebSite(string url)
         {
             await _page.GotoAsync(url);
@@ -30,6 +30,11 @@ namespace GalantisPlaywright.UIActions
         public async Task AssertLocatorCount(ILocator locator, int count = 1)
         {
             await Assertions.Expect(locator).ToHaveCountAsync(count);         
+        }       
+
+        public async Task AssertSelectedValue(ILocator locator, string expectedValue)
+        {
+            await Assertions.Expect(locator).ToHaveValueAsync(expectedValue);
         }
 
         public async Task CheckInputedTextVisibility(string iframe, string locator, string text)
@@ -83,6 +88,18 @@ namespace GalantisPlaywright.UIActions
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
             await locatorDef.FillAsync(text);
+        }
+
+        public async Task<List<string>> SuggestionBoxSelectByOption(string iframe, string locator)
+        {
+            var iframeLocator = GetIFrame(iframe);
+            var locatorDef = iframeLocator.Locator(locator);
+            var suggBoxElements = await locatorDef.Locator("option").AllTextContentsAsync();
+
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
+            
+            return suggBoxElements.Where(o => !string.IsNullOrWhiteSpace(o)).ToList();
         }
     }
 }

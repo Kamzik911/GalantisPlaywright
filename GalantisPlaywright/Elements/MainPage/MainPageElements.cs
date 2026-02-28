@@ -8,7 +8,7 @@ namespace GalantisPlaywright.Elements.MainPage
         private EnvironmentRouteProvider _environmentRoute;
         private MainPageElementsDef mpElementsDef;
 
-        private IMainPageActions _mpActions; 
+        private IMainPageActions _mpActions;        
 
         public MainPageElements(IMainPageActions mpActions, EnvironmentRouteProvider environmentRoute)
         {
@@ -53,6 +53,12 @@ namespace GalantisPlaywright.Elements.MainPage
         public async Task EmailAddressWarningText()
         {
             await _mpActions.CheckIframeTextVisibility(mpElementsDef.InitialModalIframe, mpElementsDef.EmailCountryWarningMessage, 2);
+        }
+                
+        public async Task<List<string>> LoadCountries()
+        {
+            var countries = await _mpActions.SuggestionBoxSelectByOption(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
+            return countries;
         }
     }
 }

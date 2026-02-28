@@ -21,7 +21,7 @@ namespace GalantisPlaywright.Tests.MainPage
 
         [SetUp]
         public async Task Setup()
-        {            
+        {   
             _browserSestup = new BrowserSetup();            
             _browser = await _browserSestup.SetupBrowser(Browsers.Chrome);
             _context = await _browser.NewContextAsync();
@@ -30,7 +30,7 @@ namespace GalantisPlaywright.Tests.MainPage
             _routeProvider = new EnvironmentRouteProvider();            
             _mpActions = new MainPageActions(_page);
             _mpElements = new MainPageElements(_mpActions, _routeProvider);            
-        }
+        }       
 
         [Test]
         public async Task GoToMainPage()
@@ -68,8 +68,14 @@ namespace GalantisPlaywright.Tests.MainPage
             await _mpElements.EmailAddressWarningText();
         }
 
-        [TearDown]
+        [Test]
+        public async Task AllCountriesAreSelectable()
+        {
+            await _mpElements.GoToMainWebSite();            
+            await _mpElements.LoadCountries();
+        }        
 
+        [TearDown]
         public async Task CleanAfterTest()
         {
             if (_browser != null)
