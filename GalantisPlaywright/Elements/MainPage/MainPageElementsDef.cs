@@ -11,5 +11,5 @@
         public string EmailAddressField = "input[name='EMAIL']";
         public string CountrySuggestionBox = "select[name='MMERGE29']";
         public string MainModalWindowSubscribeButton = "input[class='button'][data-dojo-attach-point='submitButton']";                
-    }    
+    }       
 }

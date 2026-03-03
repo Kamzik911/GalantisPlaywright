@@ -12,7 +12,7 @@ namespace GalantisPlaywright.RoutePages
                 ?? "https://galantis.merchtable.com";
         }
 
-        public string Get(SetRoutePages page)
+        public string GetPage(SetRoutePages page)
         {
             var route = page switch
             {

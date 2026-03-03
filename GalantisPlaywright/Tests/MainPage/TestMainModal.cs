@@ -53,7 +53,7 @@ namespace GalantisPlaywright.Tests.MainPage
         }
 
         [Test]
-        public async Task TextToInitialModalEmailField()
+        public async Task ImputTextToInitialModalEmailField()
         {
             await _mpElements.GoToMainWebSite();
             await _mpElements.InputTextInitialModalEmailField();
@@ -69,12 +69,19 @@ namespace GalantisPlaywright.Tests.MainPage
         }
 
         [Test]
-        public async Task AllCountriesAreSelectable()
+        public async Task AllCountriesArePresent()
         {
             await _mpElements.GoToMainWebSite();
             await _mpElements.GetCountries();
             await _mpElements.ExpectedCoutries();            
         }        
+
+        [Test]
+        public async Task AllCountriesAreSelectable()
+        {
+            await _mpElements.GoToMainWebSite();            
+            await _mpElements.AllCountriesAreSelectable();
+        }
 
         [TearDown]
         public async Task CleanAfterTest()

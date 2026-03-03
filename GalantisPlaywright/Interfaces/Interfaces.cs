@@ -5,7 +5,7 @@ namespace GalantisPlaywright.Interfaces
 {
     public interface ISetRoutePages
     {
-        string Get(SetRoutePages pages);        
+        string GetPage(SetRoutePages pages);        
     }
 
     public interface IMainPageActions
@@ -20,7 +20,8 @@ namespace GalantisPlaywright.Interfaces
         Task ClickButtonByLocator(string locator);
         Task ClickInFrameButton(string iframe, string locator);
         Task InputTextToField(string iframe, string locator, string text);
-        Task<List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator);
+        Task <List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator);
+        Task AssertAllOptionsSelectableAsync(string iframe, string locator);
     }
 
     public interface IMainPageElements
@@ -34,6 +35,7 @@ namespace GalantisPlaywright.Interfaces
         Task ClickMainModalSubscribeButton();
         Task InputTextInitialModalEmailField();
         Task CheckInputedTextToModalEmailField();
-        Task EmailAddressWarningText();        
+        Task EmailAddressWarningText();
+        Task AllCountriesAreSelectable();
     }
 }

@@ -21,7 +21,7 @@ namespace GalantisPlaywright.Elements.MainPage
 
         public async Task GoToMainWebSite()
         {
-            await _mpActions.GoToWebSite(_environmentRoute.Get(SetRoutePages.Home));
+            await _mpActions.GoToWebSite(_environmentRoute.GetPage(SetRoutePages.Home));
         }
 
         public async Task CloseMainPageModalIfVisible()
@@ -56,7 +56,8 @@ namespace GalantisPlaywright.Elements.MainPage
         {
             await _mpActions.CheckIframeTextVisibility(mpElementsDef.InitialModalIframe, mpElementsDef.EmailCountryWarningMessage, 2);
         }
-                
+
+        //Load countries from country suggestion box and save them to cache for later use
         public async Task<List<string>> LoadCountries()
         {
             var countries = await _mpActions.GetValuesFromSuggestionBoxByOption(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
@@ -74,6 +75,12 @@ namespace GalantisPlaywright.Elements.MainPage
             var expected = TestDataCache.Countries;
             
             CollectionAssert.AreEquivalent(actual, expected);
+        }       
+
+        public async Task AllCountriesAreSelectable()
+        {
+            await _mpActions.AssertAllOptionsSelectableAsync(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
+
         }
     }
 }

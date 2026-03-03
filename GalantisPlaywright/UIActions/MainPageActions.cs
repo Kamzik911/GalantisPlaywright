@@ -21,7 +21,12 @@ namespace GalantisPlaywright.UIActions
         public IFrameLocator GetIFrame(string iframe)
         {
             return _page.FrameLocator(iframe);            
-        }       
+        }
+        
+        public ILocator GetLocator(string locator)
+        {
+            return _page.Locator(locator);
+        }
 
         public async Task AssertLocatorVisibility(ILocator locator)
         {            
@@ -93,15 +98,32 @@ namespace GalantisPlaywright.UIActions
 
         public async Task<List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator)
         {
-            var iframeLocator = GetIFrame(iframe);
+            var iframeLocator = _page.FrameLocator(iframe);
             var locatorDef = iframeLocator.Locator(locator);
             var suggBoxElements = await locatorDef.Locator("option").AllTextContentsAsync();            
 
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
             
-            return suggBoxElements.Where(o => !string.IsNullOrWhiteSpace(o)).ToList();
+            return suggBoxElements
+                .Select(o => o.Trim())
+                .Where(o => !string.IsNullOrWhiteSpace(o))
+                .ToList();
         }        
+
+        public async Task AssertAllOptionsSelectableAsync(string iframe, string locator)
+        {
+            var frame = GetIFrame(iframe);
+            var select = GetLocator(locator);
+
+            var options = await GetValuesFromSuggestionBoxByOption(iframe, locator);
+
+            foreach (var option in options)
+            { 
+                await select.SelectOptionAsync(option);
+                await Assertions.Expect(select).ToHaveValueAsync(option);
+            }
+        }   
     }
 }
 
