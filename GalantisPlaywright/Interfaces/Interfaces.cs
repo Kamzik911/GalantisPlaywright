@@ -1,26 +1,43 @@
 ﻿using GalantisPlaywright.RoutePages;
+using Microsoft.Playwright;
 
 namespace GalantisPlaywright.Interfaces
 {
     public interface ISetRoutePages
     {
-        string Get(SetRoutePages pages);
-
-        public interface MainPageActions
-        {
-
-        }
+        string GetPage(SetRoutePages pages);        
     }
 
-    public interface IMainPageActions
+    public interface IMainActions
     {
+        IFrameLocator GetIFrame(string iframe);
         Task GoToWebSite(string url);
-
-        Task ClickOn(string selector);
+        Task AssertLocatorVisibility(ILocator locator);
+        Task AssertLocatorCount(ILocator locator, int count);
+        Task CheckInputedTextVisibility(string iframe, string locator, string text);
+        Task CheckIframeTextVisibility(string iframe, string text, int count);
+        Task ButtonClickAriaButton(string ariaButton);        
+        Task ButtonClickLocator(string locator);
+        Task ButtonClickAriaLink(string ariaLink);
+        Task ButtonClickIFrame(string iframe, string locator);
+        Task InputTextToField(string iframe, string locator, string text);
+        Task <List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator);
+        Task AssertAllOptionsSelectableAsync(string iframe, string locator);
     }
 
     public interface IMainPageElements
     {
         Task GoToMainWebSite();
+        Task<List<string>> LoadCountries();
+        Task GetCountries();
+        Task ExpectedCoutries();
+        Task CloseMainPageModalIfVisible();
+        Task GoToMainWebSiteAndCloseModal();
+        Task ClickMainModalSubscribeButton();
+        Task InputTextInitialModalEmailField();
+        Task CheckInputedTextToModalEmailField();
+        Task EmailAddressWarningText();
+        Task AllCountriesAreSelectable();
+        Task ClickCategoryBarOption();
     }
 }

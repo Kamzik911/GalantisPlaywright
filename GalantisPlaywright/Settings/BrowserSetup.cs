@@ -4,8 +4,8 @@ namespace GalantisPlaywright.Settings
 {
     public class BrowserSetup
     {
-        private IPlaywright _playwright;
-        private IBrowser _browser;        
+        private IPlaywright? _playwright;
+        private IBrowser? _browser;     
 
         public async Task<IBrowser> SetupBrowser(Browsers browser)
         {
@@ -21,7 +21,8 @@ namespace GalantisPlaywright.Settings
 
             return _browser = await browserType.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = false
+                Headless = false,
+                //SlowMo = 500
             });
         }
     }
