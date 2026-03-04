@@ -1,5 +1,4 @@
-﻿using GalantisPlaywright.Elements;
-using GalantisPlaywright.Elements.MainPage;
+﻿using GalantisPlaywright.Elements.MainPage;
 using GalantisPlaywright.Interfaces;
 using GalantisPlaywright.RoutePages;
 using GalantisPlaywright.Settings;
@@ -16,7 +15,7 @@ namespace GalantisPlaywright.Tests.MainPage
         private IPage _page;
         private IBrowserContext _context;
         private EnvironmentRouteProvider _routeProvider;
-        private IMainPageActions _mpActions;
+        private IMainActions _mpActions;
         private IMainPageElements _mpElements;        
 
         [SetUp]
@@ -28,16 +27,17 @@ namespace GalantisPlaywright.Tests.MainPage
             _page = await _context.NewPageAsync();
 
             _routeProvider = new EnvironmentRouteProvider();            
-            _mpActions = new MainPageActions(_page);
+            _mpActions = new MainActions(_page);
             _mpElements = new MainPageElements(_mpActions, _routeProvider);            
         }       
-
+                
         [Test]
         public async Task GoToMainPage()
         {
             await _mpElements.GoToMainWebSite();
         }
 
+        //Modal window tests
         [Test]
         public async Task GoToMainPageAndCloseModal()
         {
@@ -81,6 +81,14 @@ namespace GalantisPlaywright.Tests.MainPage
         {
             await _mpElements.GoToMainWebSite();            
             await _mpElements.AllCountriesAreSelectable();
+        }
+
+        //Category bar tests
+        [Test]
+        public async Task ViewAllButtonClick()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.ClickCategoryBarOption();
         }
 
         [TearDown]

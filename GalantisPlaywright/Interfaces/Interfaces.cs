@@ -8,7 +8,7 @@ namespace GalantisPlaywright.Interfaces
         string GetPage(SetRoutePages pages);        
     }
 
-    public interface IMainPageActions
+    public interface IMainActions
     {
         IFrameLocator GetIFrame(string iframe);
         Task GoToWebSite(string url);
@@ -16,9 +16,10 @@ namespace GalantisPlaywright.Interfaces
         Task AssertLocatorCount(ILocator locator, int count);
         Task CheckInputedTextVisibility(string iframe, string locator, string text);
         Task CheckIframeTextVisibility(string iframe, string text, int count);
-        Task ClickOnButtonByName(string name);        
-        Task ClickButtonByLocator(string locator);
-        Task ClickInFrameButton(string iframe, string locator);
+        Task ButtonClickAriaButton(string ariaButton);        
+        Task ButtonClickLocator(string locator);
+        Task ButtonClickAriaLink(string ariaLink);
+        Task ButtonClickIFrame(string iframe, string locator);
         Task InputTextToField(string iframe, string locator, string text);
         Task <List<string>> GetValuesFromSuggestionBoxByOption(string iframe, string locator);
         Task AssertAllOptionsSelectableAsync(string iframe, string locator);
@@ -37,5 +38,6 @@ namespace GalantisPlaywright.Interfaces
         Task CheckInputedTextToModalEmailField();
         Task EmailAddressWarningText();
         Task AllCountriesAreSelectable();
+        Task ClickCategoryBarOption();
     }
 }

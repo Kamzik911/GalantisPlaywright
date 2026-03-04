@@ -10,9 +10,9 @@ namespace GalantisPlaywright.Elements.MainPage
         private EnvironmentRouteProvider _environmentRoute;
         private MainPageElementsDef mpElementsDef;
 
-        private IMainPageActions _mpActions;        
+        private IMainActions _mpActions;        
 
-        public MainPageElements(IMainPageActions mpActions, EnvironmentRouteProvider environmentRoute)
+        public MainPageElements(IMainActions mpActions, EnvironmentRouteProvider environmentRoute)
         {
             _mpActions = mpActions;
             _environmentRoute = environmentRoute;
@@ -26,7 +26,7 @@ namespace GalantisPlaywright.Elements.MainPage
 
         public async Task CloseMainPageModalIfVisible()
         {
-            await _mpActions.ClickOnButtonByName(mpElementsDef.MainPageCloseButtonModal);
+            await _mpActions.ButtonClickAriaButton(mpElementsDef.MainPageCloseButtonModal);
         }
 
         //Go to main website and close initial modal
@@ -39,7 +39,7 @@ namespace GalantisPlaywright.Elements.MainPage
         //Initial modal window elements
         public async Task ClickMainModalSubscribeButton()
         {
-            await _mpActions.ClickInFrameButton(mpElementsDef.InitialModalIframe, mpElementsDef.MainModalWindowSubscribeButton);
+            await _mpActions.ButtonClickIFrame(mpElementsDef.InitialModalIframe, mpElementsDef.MainModalWindowSubscribeButton);
         }
 
         public async Task InputTextInitialModalEmailField()
@@ -81,6 +81,12 @@ namespace GalantisPlaywright.Elements.MainPage
         {
             await _mpActions.AssertAllOptionsSelectableAsync(mpElementsDef.InitialModalIframe, mpElementsDef.CountrySuggestionBox);
 
+        }
+
+        //category-bar
+        public async Task ClickCategoryBarOption()
+        {
+            await _mpActions.ButtonClickAriaLink(mpElementsDef.VievAllButton);
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using GalantisPlaywright.Interfaces;
-using GalantisPlaywright.Settings;
 using Microsoft.Playwright;
 
 namespace GalantisPlaywright.UIActions
 {
-    public class MainPageActions : IMainPageActions
+    public class MainActions : IMainActions
     {
         private IPage _page;        
 
-        public MainPageActions(IPage page)
+        public MainActions(IPage page)
         {
             _page = page;
         }
@@ -26,6 +25,11 @@ namespace GalantisPlaywright.UIActions
         public ILocator GetLocator(string locator)
         {
             return _page.Locator(locator);
+        }
+
+        public async Task LocatorClick(string locator)
+        {
+            await GetLocator(locator).ClickAsync();
         }
 
         public async Task AssertLocatorVisibility(ILocator locator)
@@ -59,26 +63,38 @@ namespace GalantisPlaywright.UIActions
             await AssertLocatorCount(textDef, count);            
         }
 
-        public async Task ClickOnButtonByName(string name)
+        public async Task ButtonClickAriaButton(string ariaButton)
         {
             var locatorDef = _page.GetByRole(AriaRole.Button, new()
             {
-                Name = name
+                Name = ariaButton
             });
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
             await locatorDef.ClickAsync();
         }
 
-        public async Task ClickButtonByLocator(string locator)
+        public async Task ButtonClickAriaLink(string ariaLink)
+        {
+            var button = _page.GetByRole(AriaRole.Link, new()
+            {
+                Name = ariaLink
+            });
+            await AssertLocatorCount(button);
+            await AssertLocatorVisibility(button);
+            await button.ClickAsync();
+
+        }
+
+        public async Task ButtonClickLocator(string locator)
         {
             var button = _page.Locator(locator);
             await AssertLocatorCount(button);
             await AssertLocatorVisibility(button);
-            await button.ClickAsync();
-        }
-        
-        public async Task ClickInFrameButton(string iframe, string locator)
+            await LocatorClick(locator);
+        }        
+
+        public async Task ButtonClickIFrame(string iframe, string locator)
         {
             var iframeLocator = GetIFrame(iframe);
             var locatorDef = iframeLocator.Locator(locator);
@@ -100,7 +116,7 @@ namespace GalantisPlaywright.UIActions
         {
             var iframeLocator = _page.FrameLocator(iframe);
             var locatorDef = iframeLocator.Locator(locator);
-            var suggBoxElements = await locatorDef.Locator("option").AllTextContentsAsync();            
+            var suggBoxElements = await locatorDef.Locator("select > option").AllTextContentsAsync();            
 
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
