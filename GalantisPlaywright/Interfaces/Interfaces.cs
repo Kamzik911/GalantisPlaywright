@@ -11,13 +11,15 @@ namespace GalantisPlaywright.Interfaces
     public interface IMainActions
     {
         IFrameLocator GetIFrame(string iframe);
+        ILocator GetLocator(string locator);
+        Task LocatorClick(ILocator locator);
         Task GoToWebSite(string url);
         Task AssertLocatorVisibility(ILocator locator);
         Task AssertLocatorCount(ILocator locator, int count);
         Task CheckInputedTextVisibility(string iframe, string locator, string text);
         Task CheckIframeTextVisibility(string iframe, string text, int count);
         Task ButtonClickAriaButton(string ariaButton);        
-        Task ButtonClickLocator(string locator);
+        Task ClickLocator(string locator);
         Task ButtonClickAriaLink(string ariaLink);
         Task ButtonClickIFrame(string iframe, string locator);
         Task InputTextToField(string iframe, string locator, string text);
@@ -38,6 +40,9 @@ namespace GalantisPlaywright.Interfaces
         Task CheckInputedTextToModalEmailField();
         Task EmailAddressWarningText();
         Task AllCountriesAreSelectable();
-        Task ClickCategoryBarOption();
+
+        //Category-bar
+        Task ClickViewAllCategoryBar();
+        Task ClickAccessoriesCategoryBar();
     }
 }

@@ -84,9 +84,14 @@ namespace GalantisPlaywright.Elements.MainPage
         }
 
         //category-bar
-        public async Task ClickCategoryBarOption()
+        public async Task ClickViewAllCategoryBar()
         {
-            await _mpActions.ButtonClickAriaLink(mpElementsDef.VievAllButton);
+            await _mpActions.ButtonClickAriaLink(mpElementsDef.CategoryBarVievAllButton);
+        }
+
+        public async Task ClickAccessoriesCategoryBar()
+        {
+            await _mpActions.ButtonClickAriaLink(mpElementsDef.CategoryBarAccessoriesButton);
         }
     }
 }

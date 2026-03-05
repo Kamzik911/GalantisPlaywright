@@ -27,9 +27,9 @@ namespace GalantisPlaywright.UIActions
             return _page.Locator(locator);
         }
 
-        public async Task LocatorClick(string locator)
+        public async Task LocatorClick(ILocator locator)
         {
-            await GetLocator(locator).ClickAsync();
+            await locator.ClickAsync();
         }
 
         public async Task AssertLocatorVisibility(ILocator locator)
@@ -71,7 +71,7 @@ namespace GalantisPlaywright.UIActions
             });
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
-            await locatorDef.ClickAsync();
+            await LocatorClick(locatorDef);
         }
 
         public async Task ButtonClickAriaLink(string ariaLink)
@@ -86,12 +86,12 @@ namespace GalantisPlaywright.UIActions
 
         }
 
-        public async Task ButtonClickLocator(string locator)
+        public async Task ClickLocator(string locator)
         {
             var button = _page.Locator(locator);
             await AssertLocatorCount(button);
             await AssertLocatorVisibility(button);
-            await LocatorClick(locator);
+            await LocatorClick(button);
         }        
 
         public async Task ButtonClickIFrame(string iframe, string locator)

@@ -85,11 +85,21 @@ namespace GalantisPlaywright.Tests.MainPage
 
         //Category bar tests
         [Test]
-        public async Task ViewAllButtonClick()
+        public async Task ViewAllButtonClick_ShouldPass()
         {
             await _mpElements.GoToMainWebSite();
-            await _mpElements.ClickCategoryBarOption();
+            await _mpElements.GoToMainWebSiteAndCloseModal();
+            await _mpElements.ClickViewAllCategoryBar();
         }
+
+        [Test]
+        public async Task AccessoriesButtonClick_ShouldPass()
+        {
+            await _mpElements.GoToMainWebSite();
+            await _mpElements.GoToMainWebSiteAndCloseModal();
+            await _mpElements.ClickAccessoriesCategoryBar();
+        }
+
 
         [TearDown]
         public async Task CleanAfterTest()

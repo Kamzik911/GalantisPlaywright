@@ -13,7 +13,12 @@
         public string MainModalWindowSubscribeButton = "input[class='button'][data-dojo-attach-point='submitButton']";
 
         //Category-bar
-        public string VievAllButton = "View All";
+        public string CategoryBarVievAllButton = "view All";
+        public string CategoryBarAccessoriesButton = "Accessories";
+        public string CategoryBarApparelButton = "Apparel";
+        public string CategoryBarBundles = "Bundles";
+        public string CategoryBarMusic = "Music";
+        public string CategoryBarSale = "Sale";
     }
 
 }
