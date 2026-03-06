@@ -16,9 +16,9 @@
         public string CategoryBarVievAllButton = "view All";
         public string CategoryBarAccessoriesButton = "Accessories";
         public string CategoryBarApparelButton = "Apparel";
-        public string CategoryBarBundles = "Bundles";
-        public string CategoryBarMusic = "Music";
-        public string CategoryBarSale = "Sale";
+        public string CategoryBarBundlesButton = "Bundles";
+        public string CategoryBarMusicButton = "a[data-category='music']";
+        public string CategoryBarSaleButton = "Sale";
     }
 
 }

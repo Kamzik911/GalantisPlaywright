@@ -19,7 +19,7 @@ namespace GalantisPlaywright.Interfaces
         Task CheckInputedTextVisibility(string iframe, string locator, string text);
         Task CheckIframeTextVisibility(string iframe, string text, int count);
         Task ButtonClickAriaButton(string ariaButton);        
-        Task ClickLocator(string locator);
+        Task ClickButton(string locator);
         Task ButtonClickAriaLink(string ariaLink);
         Task ButtonClickIFrame(string iframe, string locator);
         Task InputTextToField(string iframe, string locator, string text);
@@ -39,10 +39,13 @@ namespace GalantisPlaywright.Interfaces
         Task InputTextInitialModalEmailField();
         Task CheckInputedTextToModalEmailField();
         Task EmailAddressWarningText();
-        Task AllCountriesAreSelectable();
+        Task AllCountriesAreSelectable();        
 
         //Category-bar
         Task ClickViewAllCategoryBar();
         Task ClickAccessoriesCategoryBar();
+        Task ClickApparelCategoryBar();
+        Task ClickBundlesCategoryBar();
+        Task ClickMusicCategoryBar();
     }
 }

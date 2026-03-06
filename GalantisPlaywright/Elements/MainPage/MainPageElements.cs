@@ -93,5 +93,20 @@ namespace GalantisPlaywright.Elements.MainPage
         {
             await _mpActions.ButtonClickAriaLink(mpElementsDef.CategoryBarAccessoriesButton);
         }
+
+        public async Task ClickApparelCategoryBar()
+        {
+            await _mpActions.ButtonClickAriaLink(mpElementsDef.CategoryBarApparelButton);
+        }
+
+        public async Task ClickBundlesCategoryBar()
+        {
+            await _mpActions.ButtonClickAriaLink(mpElementsDef.CategoryBarBundlesButton);
+        }
+
+        public async Task ClickMusicCategoryBar()
+        {
+            await _mpActions.ClickButton(mpElementsDef.CategoryBarMusicButton);
+        }
     }
 }

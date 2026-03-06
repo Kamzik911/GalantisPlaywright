@@ -87,7 +87,6 @@ namespace GalantisPlaywright.Tests.MainPage
         [Test]
         public async Task ViewAllButtonClick_ShouldPass()
         {
-            await _mpElements.GoToMainWebSite();
             await _mpElements.GoToMainWebSiteAndCloseModal();
             await _mpElements.ClickViewAllCategoryBar();
         }
@@ -95,9 +94,29 @@ namespace GalantisPlaywright.Tests.MainPage
         [Test]
         public async Task AccessoriesButtonClick_ShouldPass()
         {
-            await _mpElements.GoToMainWebSite();
             await _mpElements.GoToMainWebSiteAndCloseModal();
             await _mpElements.ClickAccessoriesCategoryBar();
+        }
+
+        [Test]
+        public async Task ApparelButtonClick_ShouldPass()
+        {
+            await _mpElements.GoToMainWebSiteAndCloseModal();
+            await _mpElements.ClickApparelCategoryBar();
+        }
+
+        [Test]
+        public async Task ClickBundlesCategoryBar_ShouldPass()
+        {
+            await _mpElements.GoToMainWebSiteAndCloseModal();
+            await _mpElements.ClickBundlesCategoryBar();
+        }
+
+        [Test]
+        public async Task ClickMusicCategoryBar_ShouldPass() 
+        {
+            await _mpElements.GoToMainWebSiteAndCloseModal();
+            await _mpElements.ClickMusicCategoryBar();
         }
 
 

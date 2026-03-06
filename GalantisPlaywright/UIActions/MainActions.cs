@@ -82,11 +82,22 @@ namespace GalantisPlaywright.UIActions
             });
             await AssertLocatorCount(button);
             await AssertLocatorVisibility(button);
-            await button.ClickAsync();
+            await LocatorClick(button);
 
         }
 
-        public async Task ClickLocator(string locator)
+        public async Task ButtonClickAriaCheckbox(string ariaButton)
+        {
+            var locatorDef = _page.GetByRole(AriaRole.Checkbox, new()
+            {
+                Name = ariaButton
+            });
+            await AssertLocatorCount(locatorDef);
+            await AssertLocatorVisibility(locatorDef);
+            await LocatorClick(locatorDef);
+        }
+
+        public async Task ClickButton(string locator)
         {
             var button = _page.Locator(locator);
             await AssertLocatorCount(button);
@@ -100,7 +111,7 @@ namespace GalantisPlaywright.UIActions
             var locatorDef = iframeLocator.Locator(locator);
             await AssertLocatorCount(locatorDef);
             await AssertLocatorVisibility(locatorDef);
-            await locatorDef.ClickAsync();
+            await LocatorClick(locatorDef);
         }
 
         public async Task InputTextToField(string iframe, string locator, string text)
